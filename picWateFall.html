@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous">
+    </script>
+    <style>
+        .box{
+            position: relative;
+        }
+        ul li {
+            padding: 0;
+            margin: 5px;
+            list-style: none;
+            border: 1px solid;
+            position: absolute;
+            transition: all 1s;
+
+        }
+        .pics .h1{
+            width:140px;
+            height: 350px;
+            background-color: crimson;
+        }
+        .pics .h2{
+            width:140px;
+            height: 550px;
+            background-color: yellow ;
+        }
+        .pics .h3{
+            width:140px;
+            height: 440px;
+            background-color: green ;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul class="pics">
+        <li class="pic-ct h1">1</li>
+        <li class="pic-ct h2">2</li>
+        <li class="pic-ct h1">3</li>
+        <li class="pic-ct h3">4</li>
+        <li class="pic-ct h3">5</li>
+        <li class="pic-ct h2">6</li>
+        <li class="pic-ct h1">7</li>
+        <li class="pic-ct h3">8</li>
+        <li class="pic-ct h2">9</li>
+
+    </ul>
+</div>
+<script>
+
+    waterFall()
+    $(window).resize(function(){waterFall()})
+
+
+    function waterFall() {
+        var nodeWidth = $('.pic-ct').width()
+        var colLength = parseInt($('.box').width()/nodeWidth)
+        var itemArr = []
+        for(i=0;i<colLength;i++){
+            itemArr[i]=0
+        }
+
+        $('.pic-ct').each(function () {
+            var minValue = Math.min.apply(null,itemArr)
+            var minIndex = itemArr.indexOf(minValue)
+
+            $(this).css({
+                top:itemArr[minIndex],
+                left:$(this).outerWidth(true)*minIndex
+            })
+
+            itemArr[minIndex]+= $(this).outerHeight(true)
+        })
+
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>
